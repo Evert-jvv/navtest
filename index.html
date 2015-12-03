@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Routing Map</title>
+  <link rel="stylesheet" href="leaflet/leaflet.css">
+  <link rel="stylesheet" href="lrm-valhalla/leaflet.routing.valhalla.css">
+  <style>
+  #map {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="leaflet/leaflet.js"></script>
+  <script src="https://mapzen.com/tangram/tangram.min.js"></script>
+  <script src="leaflet-routing-machine/leaflet-routing-machine.js"></script>
+  <script src="lrm-valhalla/lrm-valhalla.js"></script>
+  <script>
+    var map = L.map('map');
+    var layer = Tangram.leafletLayer({
+      scene: 'https://raw.githubusercontent.com/valhalla/valhalla-docs/master/examples/skin-and-bones-scene.yaml',
+      attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | <a href="http://www.openstreetmap.org/about" target="_blank">&copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>',
+    });
+    layer.addTo(map);
+    //map.setView([41.8758,-87.6189], 16)
+    L.Routing.control({
+      waypoints: [
+        L.latLng(41.8758,-87.6189),
+        L.latLng(33.8128,-117.9259)
+      ],
+      lineOptions: {
+        styles: [ {color: 'white',opacity: 0.8, weight: 12},
+                  {color: '#2676C6', opacity: 1, weight: 6}
+      ]},
+      router: L.Routing.valhalla('valhalla-nhsneMo', 'auto'),
+      formatter: new L.Routing.Valhalla.Formatter(),
+      summaryTemplate:'<div class="start">{name}</div><div class="info {transitmode}">{distance}, {time}</div>',
+      routeWhileDragging: false
+    }).addTo(map);
+  </script>
+</body>
+</html>
+
+
+
