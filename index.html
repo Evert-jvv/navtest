@@ -38,7 +38,7 @@
       router: L.Routing.valhalla('valhalla-nhsneMo', 'auto'),
       formatter: new L.Routing.Valhalla.Formatter(),
       summaryTemplate:'<div class="start">{name}</div><div class="info {transitmode}">{distance}, {time}</div>',
-      routeWhileDragging: false
+      routeWhileDragging: true
     }).addTo(map);
   </script>
 </body>
